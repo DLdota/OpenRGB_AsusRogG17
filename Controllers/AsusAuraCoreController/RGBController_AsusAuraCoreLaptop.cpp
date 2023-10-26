@@ -11,18 +11,93 @@
 
 static unsigned int matrix_map[ASUSAURACORELAPTOP_KEY_HEIGHT][ASUSAURACORELAPTOP_KEY_WIDTH] =
 {
-    {  NA,  NA,  86,  87,  88,  89,  90,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA },
-    {   0,  NA,   1,   2,   3,   4,  NA,   5,   6,   7,   8,  NA,   9,  10,  11,  12,  13,  NA },
-    {  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,  26,  27,  28,  29,  30,  NA },
-    {  31,  NA,  32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  NA,  45,  NA },
-    {  46,  NA,  47,  48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  NA,  58,  NA,  59,  NA },
-    {  60,  NA,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71,  NA,  72,  NA,  73,  NA },
-    {  74,  75,  76,  77,  NA,  NA,  NA,  78,  NA,  NA,  NA,  79,  80,  81,  82,  83,  84,  85 }
-};
+    {  NA,  NA,  98,  99, 100, 101, 102,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA,  NA },
+    {   0,  NA,   1,   2,   3,   4,  5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16 },
+    {  17,  18,  19,  20,  21,  22,  23,  24,  25,  26,  27,  28,  29,  30,  31,  32,  33,  34 },
+    {  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  52 },
+    {  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,  64,  65,  NA,  66,  67,  68,  NA }, //+
+    {  69,  NA,  70,  71,  72,  73,  74,  75,  76,  77,  78,  79,  80,  81,  82,  83,  84,  85 },
+    {  86,  87,  88,  89,  NA,  NA,  NA,  90,  NA,  NA,  91,  92,  93,  94,  95,  96,  97,  NA  },
 
+};
+namespace skipping{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 static const char *led_names[] =
 {
-    KEY_EN_ESCAPE,              //00
+    KEY_EN_ESCAPE,
     KEY_EN_F1,
     KEY_EN_F2,
     KEY_EN_F3,
@@ -32,10 +107,13 @@ static const char *led_names[] =
     KEY_EN_F7,
     KEY_EN_F8,
     KEY_EN_F9,
-    KEY_EN_F10,                 //10
+    KEY_EN_F10,
     KEY_EN_F11,
     KEY_EN_F12,
-    KEY_EN_DELETE,
+    KEY_EN_DELETE,              //1
+    KEY_EN_PAUSE_BREAK,
+    KEY_EN_PRINT_SCREEN,
+    KEY_EN_HOME,
 
     KEY_EN_BACK_TICK,
     KEY_EN_1,
@@ -43,7 +121,7 @@ static const char *led_names[] =
     KEY_EN_3,
     KEY_EN_4,
     KEY_EN_5,
-    KEY_EN_6,                   //20
+    KEY_EN_6,                   //2
     KEY_EN_7,
     KEY_EN_8,
     KEY_EN_9,
@@ -51,9 +129,10 @@ static const char *led_names[] =
     KEY_EN_MINUS,
     KEY_EN_EQUALS,
     KEY_EN_BACKSPACE,
-    KEY_EN_BACKSPACE,
-    KEY_EN_BACKSPACE,
-    KEY_EN_MEDIA_PLAY_PAUSE,    //30
+    KEY_EN_NUMPAD_LOCK,
+    KEY_EN_NUMPAD_DIVIDE,
+    KEY_EN_NUMPAD_TIMES,
+    KEY_EN_NUMPAD_MINUS,
 
     KEY_EN_TAB,
     KEY_EN_Q,
@@ -64,18 +143,21 @@ static const char *led_names[] =
     KEY_EN_Y,
     KEY_EN_U,
     KEY_EN_I,
-    KEY_EN_O,                   //40
+    KEY_EN_O,                   //3
     KEY_EN_P,
     KEY_EN_LEFT_BRACKET,
     KEY_EN_RIGHT_BRACKET,
     KEY_EN_ANSI_BACK_SLASH,
-    KEY_EN_MEDIA_STOP,
+    KEY_EN_NUMPAD_7,
+    KEY_EN_NUMPAD_8,
+    KEY_EN_NUMPAD_9,
+    KEY_EN_NUMPAD_PLUS,
 
     KEY_EN_CAPS_LOCK,
     KEY_EN_A,
     KEY_EN_S,
     KEY_EN_D,
-    KEY_EN_F,                   //50
+    KEY_EN_F,                   //4
     KEY_EN_G,
     KEY_EN_H,
     KEY_EN_J,
@@ -84,9 +166,11 @@ static const char *led_names[] =
     KEY_EN_SEMICOLON,
     KEY_EN_QUOTE,
     KEY_EN_ANSI_ENTER,
-    KEY_EN_MEDIA_PREVIOUS,
+    KEY_EN_NUMPAD_4,
+    KEY_EN_NUMPAD_5,
+    KEY_EN_NUMPAD_6,
 
-    KEY_EN_LEFT_SHIFT,          //60
+    KEY_EN_LEFT_SHIFT,
     KEY_EN_Z,
     KEY_EN_X,
     KEY_EN_C,
@@ -96,10 +180,13 @@ static const char *led_names[] =
     KEY_EN_M,
     KEY_EN_COMMA,
     KEY_EN_PERIOD,
-    KEY_EN_FORWARD_SLASH,       //70
+    KEY_EN_FORWARD_SLASH,       //5
     KEY_EN_RIGHT_SHIFT,
     KEY_EN_UP_ARROW,
-    KEY_EN_MEDIA_NEXT,
+    KEY_EN_NUMPAD_1,
+    KEY_EN_NUMPAD_2,
+    KEY_EN_NUMPAD_3,
+    KEY_EN_NUMPAD_ENTER,
 
     KEY_EN_LEFT_CONTROL,
     KEY_EN_LEFT_FUNCTION,
@@ -107,18 +194,23 @@ static const char *led_names[] =
     KEY_EN_LEFT_ALT,
     KEY_EN_SPACE,
     KEY_EN_RIGHT_ALT,
-    KEY_EN_RIGHT_CONTROL,       //80
+    KEY_EN_RIGHT_CONTROL,
     KEY_EN_LEFT_ARROW,
     KEY_EN_DOWN_ARROW,
     KEY_EN_RIGHT_ARROW,
-    KEY_EN_PRINT_SCREEN,
-    "Asus Keystone",
+    KEY_EN_NUMPAD_0,
+    ".",
 
     KEY_EN_MEDIA_VOLUME_DOWN,
     KEY_EN_MEDIA_VOLUME_UP,
     "Key: Mic On/Off",
     "Key: HyperFan",
-    "Key: Armoury Crate",       //90
+    "Key: Armoury Crate",
+
+    "Key LED 1",
+    "Key LED 2",
+    "Key LED 3",
+    "Key LED 4",
 
     "Lightbar LED 1",
     "Lightbar LED 2",
@@ -129,7 +221,12 @@ static const char *led_names[] =
 
     "Logo",
     "Lid Left",
-    "Lid Right",                //99
+    "Lid Right",
+
+    "Lid Right2",
+    "Lid Right3",
+    "Lid Right4",
+
 };
 
 /**------------------------------------------------------------------*\

@@ -11,41 +11,38 @@
 
 #include "SettingsManager.h"
 
+const uint8_t unk = 99;
 static uint8_t packet_map[ASUSAURACORELAPTOP_KEYCOUNT       +
                           ASUSAURACORELAPTOP_LIGHTBARCOUNT  +
                           ASUSAURACORELAPTOP_LIDCOUNT       ] =
 {
-/*00        ESC  F1   F2   F3   F4   F5   F6   F7   F8   F9  */
-            21,  23,  24,  25,  26,  28,  29,  30,  31,  33,
+/*00        ESC  F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  DEL  PAU  PRT  HOM 	 	*/ //17
+            21,  23,  24,  25,  26,  28,  29,  30,  31,  33,  34,  35,  36,  37,  37,  37,  37,
 
-/*10        F10  F11  F12  DEL   `    1    2    3    4    5  */
-            34,  35,  36,  37,  42,  43,  44,  45,  46,  47,
+/*01 		`    1    2    3    4    5    6    7    8    9    0    -    =    BSP  Num  /    *    - 		*/ //35
+            42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  52,  53,  54,  55,  unk, 56,  57,  99,
 
-/*20         6    7    8    9    0    -    =   BSP  BSP  BSP */
-            48,  49,  50,  51,  52,  53,  54,  55,  56,  57,
+/*02		TAB   Q    W    E    R    T    Y    U    I   O    P    [    ]    \	  N7   N8   N9	 +		*/ //53
+            58,  63,  64,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  unk, unk, unk, unk,
 
-/*30        PLY  TAB   Q    W    E    R    T    Y    U    I  */
-            58,  63,  64,  65,  66,  67,  68,  69,  70,  71,
+/*04        CAP   A    S    D   F    G    H    J    K    L    ;    '    ENT  N4   N5   N6 				*/ //69
+            84,  85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  98,  unk, unk, unk,
 
-/*40         O    P    [    ]    \   STP  CAP   A    S    D  */
-            72,  73,  74,  75,  76,  79,  84,  85,  86,  87,
+/*05        LSH   Z    X    C    V    B    N    M    ,    .    /   RSH  UP   N1   N2   N3   ENT 		*/ //86
+            105, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 119, 139, unk, unk, unk, unk,
 
-/*50         F    G    H    J    K    L    ;    '   ENT  PRV */
-            88,  89,  90,  91,  92,  93,  94,  95,  98, 100,
+/*06        LCTL LFN LWIN LALT  SPC RALT  RCTL LFT  DWN  RGT  N0   DEL 									*/ //98
+            126, 127, 128, 129, 131, 135, 137, 159, 160, 161, unk, unk,
 
-/*60        LSH   Z    X    C    V    B    N    M    ,    .  */
-           105, 107, 108, 109, 110, 111, 112, 113, 114, 115,
+/*AC        VDN  VUP MICM HPFN ARMC                                                                     */ //108
+            2,   3,   4,   5,   6, unk, unk,unk,unk,unk,
 
-/*70         /   RSH  UP   NXT LCTL  LFN LWIN LALT  SPC RALT */
-           116, 119, 139, 121, 126, 127, 128, 129, 131, 135,
+/*KEY       L2    L1   R1   R2              */
+            167,  168, 169, 170,
 
-/*80       RCTL  LFT  DWN  RGT  PRT KSTN  VDN  VUP MICM HPFN */
-           137, 159, 160, 161, 142, 175,   2,   3,   4,   5,
-
-/*90       ARMC  LB1  LB2  LB3  LB4  LB5  LB6 LOGO LIDL LIDR */
-             6, 174, 173, 172, 171, 170, 169, 167, 176, 177,
-
-};
+/*LID       LB1  LB2  LB3  LB4  LB5         */
+            173, 174, 175, 176, 177, 178
+ };
 
 static std::string power_zones[ASUSAURACORELAPTOP_POWER_ZONES] =
 {
@@ -149,11 +146,10 @@ void AsusAuraCoreLaptopController::SetLedsDirect(std::vector<RGBColor> colors)
     |   zones are sent in one final packet afterwards.          |
     \*---------------------------------------------------------*/
     const uint8_t  key_set                                  = 167;
-    const uint8_t  led_count                                = 178;
+    const uint8_t  led_count                                = 179;
     const uint16_t map_size                                 = 3 * led_count;
     const uint8_t leds_per_packet                           = 16;
-    uint8_t buffer[ASUSAURACORELAPTOP_WRITE_PACKET_SIZE]    = { ASUSAURACORELAPTOP_REPORT_ID, ASUSAURACORELAPTOP_CMD_DIRECT,
-                                                                0x00, 0x01, 0x01, 0x01, 0x00, leds_per_packet, 0x00 };
+    uint8_t buffer[ASUSAURACORELAPTOP_WRITE_PACKET_SIZE]    = { ASUSAURACORELAPTOP_REPORT_ID, ASUSAURACORELAPTOP_CMD_DIRECT, 0x00, 0x01, 0x01, 0x01, 0x00, leds_per_packet, 0x00 };
     uint8_t key_buf[map_size];
 
     memset(key_buf, 0, map_size);
@@ -167,20 +163,20 @@ void AsusAuraCoreLaptopController::SetLedsDirect(std::vector<RGBColor> colors)
         key_buf[offset + 2]     = RGBGetBValue(colors[led_index]);
     }
 
-    for(size_t i = 0; i < key_set; i+=leds_per_packet)
-    {
-        uint8_t leds_remaining  = key_set - i;
+//    for(size_t i = 0; i < key_set; i+=leds_per_packet)
+//    {
+//        uint8_t leds_remaining  = key_set - i;
 
-        if(leds_remaining < leds_per_packet)
-        {
-            buffer[07]          = leds_remaining;
-        }
+//        if(leds_remaining < leds_per_packet)
+//        {
+//            buffer[07]          = leds_remaining;
+//        }
 
-        buffer[06]              = i;
-        memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE], &key_buf[3 * i], (3 * buffer[07]));
+//        buffer[06]              = i;
+//        memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE], &key_buf[3 * i], (3 * buffer[07]));
 
-        hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
-    }
+//        hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
+//    }
 
     buffer[4] = 0x04;
     buffer[5] = 0x00;
